@@ -33,6 +33,7 @@ export default function NewsSandBox () {
             padding: 24,
             minHeight: 280,
             background: colorBgContainer,
+            overflow: 'auto'
           }}
         >
           <Switch>

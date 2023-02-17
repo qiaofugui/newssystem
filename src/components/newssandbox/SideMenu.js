@@ -56,15 +56,17 @@ const renderItems = (items) => {
         newItems.push({ key: items[i].key, label: items[i].label, icon: iconList[items[i].key] })
       } else { // 有子列表
         // 先push需要的数据
-        newItems.push({ key: items[i].key, label: items[i].label, icon: iconList[items[i].key] })
-        // 设置children为空数组
-        newItems[i].children = []
+        newItems.push({ key: items[i].key, label: items[i].label, icon: iconList[items[i].key], children: [] })
         // 遍历items[i].children数组
         for (let j = 0; j < items[i].children.length; j++) {
           // 判断是否页面级别需要渲染
           if (items[i].children[j].pagepermisson === 1) {
             // 取出需要的数据
-            newItems[i].children.push({ key: items[i].children[j].key, label: items[i].children[j].label, icon: iconList[items[i].children[j].key] })
+            if (newItems.length === i) {
+              newItems[i - 1].children.push({ key: items[i].children[j].key, label: items[i].children[j].label, icon: iconList[items[i].children[j].key] })
+            } else {
+              newItems[i].children.push({ key: items[i].children[j].key, label: items[i].children[j].label, icon: iconList[items[i].children[j].key] })
+            }
           }
         }
       }
