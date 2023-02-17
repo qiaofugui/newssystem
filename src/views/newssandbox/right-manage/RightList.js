@@ -10,7 +10,6 @@ import axios from 'axios';
 export default function RightList () {
 
   const [dataSource, setDataSource] = useState([])
-  const [confirmLoading, setConfirmLoading] = useState(false)
   const columns = [
     {
       title: 'ID',
@@ -43,7 +42,6 @@ export default function RightList () {
               title="确定删除吗？"
               okText='确定'
               cancelText='取消'
-              okButtonProps={{ loading: confirmLoading }}
               onConfirm={() => delOk(item)}
               icon={
                 <QuestionCircleOutlined

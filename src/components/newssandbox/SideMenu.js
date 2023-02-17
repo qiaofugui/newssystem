@@ -53,19 +53,19 @@ const renderItems = (items) => {
       // 判断是否有子列表
       if (items[i].children.length === 0) { // 没有子列表
         // 取出需要的数据push到新数组里
-        newItems.push({ key: items[i].key, label: items[i].label, icon: iconList[items[i].key] })
+        newItems.push({ key: items[i].key, label: items[i].title, icon: iconList[items[i].key] })
       } else { // 有子列表
         // 先push需要的数据
-        newItems.push({ key: items[i].key, label: items[i].label, icon: iconList[items[i].key], children: [] })
+        newItems.push({ key: items[i].key, label: items[i].title, icon: iconList[items[i].key], children: [] })
         // 遍历items[i].children数组
         for (let j = 0; j < items[i].children.length; j++) {
           // 判断是否页面级别需要渲染
           if (items[i].children[j].pagepermisson === 1) {
             // 取出需要的数据
             if (newItems.length === i) {
-              newItems[i - 1].children.push({ key: items[i].children[j].key, label: items[i].children[j].label, icon: iconList[items[i].children[j].key] })
+              newItems[i - 1].children.push({ key: items[i].children[j].key, label: items[i].children[j].title, icon: iconList[items[i].children[j].key] })
             } else {
-              newItems[i].children.push({ key: items[i].children[j].key, label: items[i].children[j].label, icon: iconList[items[i].children[j].key] })
+              newItems[i].children.push({ key: items[i].children[j].key, label: items[i].children[j].title, icon: iconList[items[i].children[j].key] })
             }
           }
         }
