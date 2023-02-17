@@ -19,8 +19,8 @@ export default function RightList () {
     },
     {
       title: '权限名称',
-      dataIndex: 'label',
-      key: 'label',
+      dataIndex: 'title',
+      key: 'title',
     },
     {
       title: '权限路径',
@@ -74,6 +74,7 @@ export default function RightList () {
       }).then(res => {
         console.log(res)
         getData()
+        message.success('删除成功')
       })
     } else {
       // let list = dataSource.filter(data => data.id === item.rightId)
@@ -84,10 +85,10 @@ export default function RightList () {
       }).then(res => {
         console.log(res)
         getData()
+        message.success('删除成功')
       })
     }
 
-    message.success('删除')
   }
   // 页面配置项开关
   const switchMethod = (item) => {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Button, Popconfirm, Modal, Tree } from 'antd'
+import { Table, Button, Popconfirm, Modal, Tree, message } from 'antd'
 import {
   UnorderedListOutlined,
   QuestionCircleOutlined,
@@ -62,6 +62,7 @@ export default function RoleList () {
     }).then(res => {
       console.log(res)
       getData()
+      message.success('删除成功')
     })
   }
 
@@ -114,7 +115,7 @@ export default function RoleList () {
     setCurrentRights(checkKeys.checked)
   }
   return (
-    <div>
+    <div style={{minWidth:300}}>
       <Table dataSource={dataSource} columns={columns} rowKey={(item) => item.id}></Table>
 
       <Modal title="角色权限控制" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText="确认"
