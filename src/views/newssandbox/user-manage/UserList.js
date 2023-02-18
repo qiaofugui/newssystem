@@ -23,10 +23,16 @@ export default function UserList () {
   const addFrom = useRef(null)
   const updateFrom = useRef(null)
 
+  const users = JSON.parse(localStorage.getItem('token'))
+
   const getData = () => {
     axios.get('http://localhost:5000/users?_expand=role').then(res => {
       console.log(res.data)
-      setDataSource(res.data)
+      // 1-超级管理员、2-区域管理员、3-区域编辑
+      setDataSource(users.roleId === 1 ? res.data : [
+        ...res.data.filter(item => item.username === users.username),
+        ...res.data.filter(item => item.region === users.region && item.roleId === 3),
+      ])
     })
   }
   const getRoleList = () => {
@@ -71,7 +77,7 @@ export default function UserList () {
       dataIndex: 'username'
     },
     {
-      title: '用户状态',
+      title: '用户禁用',
       dataIndex: 'roleState',
       render: (roleState, item) => <Switch checked={roleState} disabled={item.default} onChange={() => handelChange(item)} />
     },
@@ -188,7 +194,7 @@ export default function UserList () {
   return (
     <div>
       <Button type="primary" onClick={() => setOpen(true)}>添加用户</Button>
-      <Table dataSource={dataSource} columns={columns} pagination={{ pageSize: 5 }} rowKey={item => item.id} />
+      <div style={{ minWidth: 450 }}><Table dataSource={dataSource} columns={columns} pagination={{ pageSize: 5 }} rowKey={item => item.id} /></div>
 
       <Modal
         open={open}
@@ -214,7 +220,7 @@ export default function UserList () {
         }}
         onOk={updateFormOk}
       >
-        <UserForm roleList={roleList} regionList={regionList} ref={updateFrom} isUpdateDisabled={isUpdateDisabled} />
+        <UserForm roleList={roleList} regionList={regionList} ref={updateFrom} isUpdateDisabled={isUpdateDisabled} isUpdate={true} />
       </Modal>
     </div>
   )

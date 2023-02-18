@@ -5,9 +5,44 @@ const UserForm = forwardRef((props, ref) => {
 
   const [isDisabled, setIsDisabled] = useState(false)
 
+  const users = JSON.parse(localStorage.getItem('token'))
+
   useEffect(() => {
     setIsDisabled(props.isUpdateDisabled)
   }, [props]);
+
+  const checkRegionDisabled = (item) => {
+    if (props.isUpdate) {
+      // 1-超级管理员、2-区域管理员、3-区域编辑
+      if (users.roleId === 1) {
+        return false
+      } else {
+        return true
+      }
+    } else {
+      if (users.roleId === 1) {
+        return false
+      } else {
+        return item.value !== users.region
+      }
+    }
+  }
+  const checkRoleDisabled = (item) => {
+    if (props.isUpdate) {
+      // 1-超级管理员、2-区域管理员、3-区域编辑
+      if (users.roleId === 1) {
+        return false
+      } else {
+        return true
+      }
+    } else {
+      if (users.roleId === 1) {
+        return false
+      } else {
+        return item.id !== 3
+      }
+    }
+  }
 
   return (
     <Form
@@ -49,7 +84,11 @@ const UserForm = forwardRef((props, ref) => {
           },
         ]}
       >
-        <Select options={props.regionList} disabled={isDisabled} />
+        <Select disabled={isDisabled}>
+          {
+            props.regionList.map(item => <Select.Option key={item.id} value={item.value} disabled={checkRegionDisabled(item)}>{item.title}</Select.Option>)
+          }
+        </Select>
       </Form.Item>
       <Form.Item
         name="roleId"
@@ -73,7 +112,7 @@ const UserForm = forwardRef((props, ref) => {
         }}>
           {
             props.roleList.map(item => (
-              <Select.Option key={item.id}>
+              <Select.Option key={item.id} disabled={checkRoleDisabled(item)}>
                 {item.roleName}
               </Select.Option>
             ))
