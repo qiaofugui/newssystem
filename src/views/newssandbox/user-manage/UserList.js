@@ -26,7 +26,7 @@ export default function UserList () {
   const users = JSON.parse(localStorage.getItem('token'))
 
   const getData = () => {
-    axios.get('http://localhost:5000/users?_expand=role').then(res => {
+    axios.get('/users?_expand=role').then(res => {
       console.log(res.data)
       // 1-超级管理员、2-区域管理员、3-区域编辑
       setDataSource(users.roleId === 1 ? res.data : [
@@ -36,13 +36,13 @@ export default function UserList () {
     })
   }
   const getRoleList = () => {
-    axios.get('http://localhost:5000/roles').then(res => {
+    axios.get('/roles').then(res => {
       console.log(res.data)
       setRoleList(res.data)
     })
   }
   const getRegionList = () => {
-    axios.get('http://localhost:5000/regions').then(res => {
+    axios.get('/regions').then(res => {
       console.log(res.data)
       setRegionList(res.data)
     })
@@ -113,7 +113,7 @@ export default function UserList () {
 
   // 确认删除
   const delOk = (item) => {
-    axios.delete(`http://localhost:5000/users/${item.id}`).then(res => {
+    axios.delete(`/users/${item.id}`).then(res => {
       getData()
       message.success('删除成功')
     })
@@ -123,7 +123,7 @@ export default function UserList () {
   const addFormOk = () => {
     addFrom.current.validateFields().then(res => {
       console.log(res)
-      axios.post('http://localhost:5000/users', {
+      axios.post('/users', {
         ...res,
         "roleState": true,
         "default": false,
@@ -147,7 +147,7 @@ export default function UserList () {
       } else if (res.roleId === '区域编辑' || res.roleId === '3') {
         res.roleId = 3
       }
-      axios.patch(`http://localhost:5000/users/${current.id}`, {
+      axios.patch(`/users/${current.id}`, {
         ...res,
       }).then(res => {
         getData()
@@ -161,7 +161,7 @@ export default function UserList () {
 
   // 用户状态改变
   const handelChange = (item) => {
-    axios.patch(`http://localhost:5000/users/${item.id}`, {
+    axios.patch(`/users/${item.id}`, {
       roleState: !item.roleState
     }).then(res => {
       getData()

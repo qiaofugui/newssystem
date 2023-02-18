@@ -57,7 +57,7 @@ export default function RoleList () {
   // 删除角色操作
   const delOk = (item) => {
     console.log(item)
-    axios.patch(`http://localhost:5000/roles/${item.id}`, {
+    axios.patch(`/roles/${item.id}`, {
       pagepermisson: item.pagepermisson === 1 ? 0 : 1
     }).then(res => {
       console.log(res)
@@ -68,7 +68,7 @@ export default function RoleList () {
 
   // 获取角色列表数据
   const getData = () => {
-    axios.get('http://localhost:5000/roles').then(res => {
+    axios.get('/roles').then(res => {
       let newRes = []
       res.data.forEach(item => {
         if (item.pagepermisson === 1) {
@@ -81,7 +81,7 @@ export default function RoleList () {
   }
   // 获取权限列表数据
   const getRightData = () => {
-    axios.get('http://localhost:5000/rights?_embed=children').then(res => {
+    axios.get('/rights?_embed=children').then(res => {
       setTreeData(res.data)
     })
   }
@@ -99,7 +99,7 @@ export default function RoleList () {
   const handleOk = () => {
     setIsModalOpen(false)
     console.log(currentRights)
-    axios.patch(`http://localhost:5000/roles/${currentId}`, {
+    axios.patch(`/roles/${currentId}`, {
       rights: currentRights
     }).then(res => {
       getData()

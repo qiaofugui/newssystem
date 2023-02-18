@@ -39,7 +39,7 @@ export default function Login () {
 
   // 登录
   const onFinish = (values) => {
-    axios.get(`http://localhost:5000/users?username=${values.username}&password=${values.password}&roleType=true&_expand=role`).then(res => {
+    axios.get(`/users?username=${values.username}&password=${values.password}&roleType=true&_expand=role`).then(res => {
       console.log(res.data)
       if (res.data.length === 0) {
         message.error('用户名或密码错误')

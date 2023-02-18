@@ -91,7 +91,7 @@ export default function SideMenu () {
   useEffect(() => {
     setOpenKeys(['/' + history.location.pathname.split('/')[1]])
 
-    axios.get('http://localhost:5000/rights?_embed=children').then(res => {
+    axios.get('/rights?_embed=children').then(res => {
       setItems(renderItems(res.data))
     })
   }, []);
@@ -110,7 +110,7 @@ export default function SideMenu () {
 
   return (
     <Sider trigger={null} collapsible /* collapsed={collapsed} */>
-      <div className="logo" >NewSystem</div>
+      <div className="logo">全球新闻发布管理系统</div>
       <Menu
         theme="dark"
         mode="inline"
