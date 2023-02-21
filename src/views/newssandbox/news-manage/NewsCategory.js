@@ -75,6 +75,7 @@ export default function NewsCategory () {
 
 
   const handleSave = (record) => {
+    if (dataSource.find(item => item.title === record.title)) return
     axios.patch(`/categories/${record.id}`, {
       title: record.title,
       value: record.value
