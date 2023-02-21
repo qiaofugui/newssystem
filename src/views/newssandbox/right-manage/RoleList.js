@@ -56,7 +56,6 @@ export default function RoleList () {
 
   // 删除角色操作
   const delOk = (item) => {
-    console.log(item)
     axios.patch(`/roles/${item.id}`, {
       pagepermisson: item.pagepermisson === 1 ? 0 : 1
     }).then(res => {
@@ -75,7 +74,6 @@ export default function RoleList () {
           newRes.push(item)
         }
       })
-      console.log(newRes)
       setDataSource(newRes)
     })
   }

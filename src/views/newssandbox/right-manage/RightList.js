@@ -65,7 +65,6 @@ export default function RightList () {
   }
   // 删除方法
   const delMethod = (item) => {
-    console.log(item)
     // 当前页面同步状态 + 后端同步
     if (item.grade === 1) {
       // setDataSource(dataSource.filter(data => data.id !== item.id))
@@ -92,7 +91,6 @@ export default function RightList () {
   }
   // 页面配置项开关
   const switchMethod = (item) => {
-    console.log(item)
     // item.pagepermisson = item.pagepermisson === 1 ? 0 : 1
     // setDataSource([...dataSource])
     if (item.grade === 1) {

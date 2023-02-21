@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Button, Steps, Form, Input, Select, message, notification } from 'antd'
+import { ArrowLeftOutlined } from '@ant-design/icons'
 import axios from 'axios';
 import NewsEditor from '../../../components/news-manage/NewsEditor'
 
 import './NewsAdd.css'
 
-export default function NewsAdd (props) {
+export default function NewsUpdate (props) {
 
   const [current, setCurrent] = useState(0)
   const [categoryList, setCategoryList] = useState([])
   const [formInfo, setFormInfo] = useState()
   const [content, setContent] = useState()
+  const [newInfo, setNewInfo] = useState(null)
 
-  const users = JSON.parse(localStorage.getItem('token'))
   const NewsForm = useRef()
 
   useEffect(() => {
@@ -21,6 +22,18 @@ export default function NewsAdd (props) {
       setCategoryList(res.data)
     })
   }, [])
+
+  useEffect(() => {
+    axios.get(`news/${props.match.params.id}?_expand=category&_expand=role`).then(res => {
+      console.log(res.data)
+      setNewInfo(res.data)
+      NewsForm.current.setFieldsValue({
+        title: res.data.title,
+        categoryId: res.data.categoryId
+      })
+      setContent(res.data.content)
+    })
+  }, [props.match.params.id])
 
   // 下一步
   const handelNext = () => {
@@ -46,30 +59,23 @@ export default function NewsAdd (props) {
 
   // 保存草稿/提交
   const handelSave = (auditState) => {
-    axios.post('/news', {
+    axios.patch(`/news/${props.match.params.id}`, {
       ...formInfo,
       "content": content,
-      "region": users.region ? users.region : '全球',
-      "author": users.username,
-      "roleId": users.roleId,
       "auditState": auditState, // 0-草稿箱、1-待审核、2-已审核、3-驳回
-      "publishState": 0,
-      "createTime": Date.now(),
-      "star": 0,
-      "view": 0,
-      // "publishTime": 0
     }).then(res => {
       props.history.push(auditState === 0 ? '/news-manage/draft' : '/audit-manage/list')
       notification.info({
-        message: `${auditState === 0 ? '保存' : '提交'}成功`,
+        message: '更新成功',
         description: `您可以到${auditState === 0 ? '【新闻管理/草稿箱】' : '【审核管理/审核列表】'}中查看您的新闻`,
         placement: 'bottomRight'
       })
+      message.success(`${auditState === 0 ? '保存' : '提交'}成功`)
     })
   }
   return (
     <div>
-      <h1 style={{ fontSize: 24, padding: '0 25px 25px 25px' }}>撰写新闻</h1>
+      <h1 style={{ fontSize: 19, padding: '0 25px 25px 0' }}><Button style={{ border: 'none', fontSize: 16 }} icon={<ArrowLeftOutlined />} onClick={() => window.history.back()} /> 更新新闻</h1>
       <div>
         <Steps
           current={current}
@@ -120,7 +126,7 @@ export default function NewsAdd (props) {
           <div className={current === 1 ? '' : 'hidden'}>
             <NewsEditor getContext={(value) => {
               setContent(value)
-            }}></NewsEditor>
+            }} content={content}></NewsEditor>
           </div>
           <div className={current === 2 ? '' : 'hidden'}>
             新闻提交

@@ -3,7 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { Form, Input, Button, message, notification, Tag } from 'antd'
 import {
   UserOutlined,
-  LockOutlined
+  LockOutlined,
+  SmileOutlined
 } from '@ant-design/icons'
 
 import Particles from "react-tsparticles";
@@ -27,6 +28,13 @@ export default function Login () {
         </div>
       ),
       duration: 3.5,
+      icon: (
+        <SmileOutlined
+          style={{
+            color: '#108ee9',
+          }}
+        />
+      )
     });
   };
 

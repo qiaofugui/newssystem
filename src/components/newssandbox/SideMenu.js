@@ -49,7 +49,6 @@ export default function SideMenu () {
 
   const users = JSON.parse(localStorage.getItem('token'))
   const renderItems = (items) => {
-    console.log()
     // 新的空数组
     let newItems = []
     // 遍历 items 数组
