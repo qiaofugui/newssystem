@@ -1,0 +1,29 @@
+.preview .header {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.preview .subhead {
+  margin-left: 15px;
+  color: #ccc;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.preview ul {
+  margin: 20px;
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.preview li {
+  width: 33%;
+  line-height: 28px;
+}
+
+.preview .content {
+  padding: 30px;
+  border: 1px solid #eee;
+}
