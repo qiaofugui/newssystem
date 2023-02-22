@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { Layout, theme, Dropdown, Avatar } from 'antd'
 import {
@@ -6,11 +6,11 @@ import {
   MenuFoldOutlined,
   UserOutlined
 } from '@ant-design/icons'
+import { connect } from 'react-redux'
+
 const { Header } = Layout
 
-export default function TopHeader () {
-
-  const [collapsed, setCollapsed] = useState(false)
+function TopHeader (props) {
 
   const history = useHistory()
 
@@ -48,10 +48,13 @@ export default function TopHeader () {
         background: colorBgContainer,
       }}
     >
-      <div onClick={() => {
-        setCollapsed(!collapsed)
-      }}>
-        {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+      <div>
+        <span onClick={() => {
+          props.changCollapsed()
+        }}>
+          {props.collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        </span>
+
 
         <div style={{ float: 'right' }}>
           <span style={{ paddingRight: 15 }}>欢迎 <span style={{ color: '#1677ff' }}>{users.username || ''}</span> 登录</span>
@@ -63,3 +66,15 @@ export default function TopHeader () {
     </Header>
   )
 }
+
+const mapStateToProps = (state) => {
+  return {
+    collapsed: state.CollapsedReducer.isCollapsed
+  }
+}
+const mapReducerToProps = {
+  changCollapsed: () => ({
+    type: 'change_collapsed'
+  })
+}
+export default connect(mapStateToProps, mapReducerToProps)(TopHeader)

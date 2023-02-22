@@ -7,6 +7,9 @@ import {
 } from '@ant-design/icons'
 import axios from 'axios';
 
+import { store } from '../../../redux/store';
+import { renderItems } from '../../../utils/SideMenuUtils';
+
 export default function RoleList () {
 
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -102,6 +105,12 @@ export default function RoleList () {
     }).then(res => {
       getData()
       getRightData()
+      axios.get('/rights?_embed=children').then(res => {
+        store.dispatch({
+          type: 'change_sideMenu',
+          payload: renderItems(res.data)
+        })
+      })
     })
   }
   const handleCancel = () => {
@@ -113,7 +122,7 @@ export default function RoleList () {
     setCurrentRights(checkKeys.checked)
   }
   return (
-    <div style={{minWidth:300}}>
+    <div style={{ minWidth: 300 }}>
       <Table dataSource={dataSource} columns={columns} rowKey={(item) => item.id}></Table>
 
       <Modal title="角色权限控制" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText="确认"

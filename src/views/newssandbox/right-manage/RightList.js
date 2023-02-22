@@ -3,9 +3,11 @@ import { Table, Tag, Button, Popconfirm, message, Popover, Switch } from 'antd'
 import {
   EditOutlined,
   DeleteOutlined,
-  QuestionCircleOutlined
+  QuestionCircleOutlined,
 } from '@ant-design/icons'
 import axios from 'axios';
+import { store } from '../../../redux/store'
+import { renderItems } from '../../../utils/SideMenuUtils'
 
 export default function RightList () {
 
@@ -74,6 +76,12 @@ export default function RightList () {
         console.log(res)
         getData()
         message.success('删除成功')
+        axios.get('/rights?_embed=children').then(res => {
+          store.dispatch({
+            type: 'change_sideMenu',
+            payload: renderItems(res.data)
+          })
+        })
       })
     } else {
       // let list = dataSource.filter(data => data.id === item.rightId)
@@ -97,8 +105,14 @@ export default function RightList () {
       axios.patch(`/rights/${item.id}`, {
         pagepermisson: item.pagepermisson === 1 ? 0 : 1
       }).then(res => {
-        console.log(res)
+        console.log(res.data)
         getData()
+        axios.get('/rights?_embed=children').then(res => {
+          store.dispatch({
+            type: 'change_sideMenu',
+            payload: renderItems(res.data)
+          })
+        })
       })
     } else {
       axios.patch(`/children/${item.id}`, {

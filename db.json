@@ -112,8 +112,8 @@
         "/audit-manage/audit",
         "/audit-manage/list",
         "/publish-manage",
-        "/publish-manage/unpublished",
         "/publish-manage/published",
+        "/publish-manage/unpublished",
         "/publish-manage/sunset",
         "/home"
       ]
