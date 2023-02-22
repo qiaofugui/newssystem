@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
+import { HashRouter, Redirect, Route, Switch } from 'react-router-dom'
 
 import Login from '../views/login/Login'
 import NewsSandBox from '../views/newssandbox/NewsSandBox'
@@ -9,7 +9,7 @@ import Detail from './../views/news/Detail';
 
 export default function IndexRouter () {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Switch>
         <Route path='/login' component={Login}></Route>
         <Route path='/news' component={News}></Route>
@@ -19,6 +19,6 @@ export default function IndexRouter () {
         )}></Route>
 
       </Switch>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
