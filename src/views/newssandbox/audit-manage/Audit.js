@@ -40,8 +40,8 @@ export default function Audit (props) {
   // 新闻审核
   const handelAudit = (item, auditState, publishState) => {
     axios.patch(`/news/${item.id}`, {
-      auditState,
-      publishState
+      auditState: auditState,
+      publishState: publishState
     }).then(res => {
       getData()
       message.info('操作成功')

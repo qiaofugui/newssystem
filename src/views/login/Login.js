@@ -23,7 +23,7 @@ export default function Login () {
       message: '测试账号',
       description: (
         <div>
-          <p style={{ padding: 5 }}>账号 <Tag color="success">test</Tag></p>
+          <p style={{ padding: 5 }}>账号 <Tag color="success">admin</Tag></p>
           <p style={{ padding: 5 }}>密码 <Tag color="success">123</Tag></p>
         </div>
       ),
