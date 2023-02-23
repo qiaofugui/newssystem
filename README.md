@@ -4,8 +4,8 @@
 
 
 
-## 使用 json-server 模拟接口**`json-server .\db.json --watch --port 5000`**
-## 使用 **`react-router-dom@5`**
+## 使用 json-server 模拟接口 `json-server .\db.json --watch --port 5000`
+## 使用 `react-router-dom@5`
 
 # Getting Started with Create React App
 
