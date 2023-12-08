@@ -55,6 +55,7 @@ export default function Login () {
       } else {
         localStorage.setItem('token', JSON.stringify(res.data[0]))
         history.push('/')
+        window.location.reload()
         message.success('登录成功')
       }
     })
