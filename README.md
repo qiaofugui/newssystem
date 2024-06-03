@@ -1,10 +1,11 @@
 ## `build` 文件使用 
 1. 安装 `npm i serve -g`，在 `build` 根目录打开命令窗口执行命令 `serve`
-2. 安装 `npm i json-server -g` 在 `build` 根目录打开命令窗口执行命令 `json-server .\db.json --watch --port 5000`
+2. 安装 `npm i json-server -g` 在 `build` 根目录打开命令窗口执行命令 `json-server .\db.json --watch --port 3001`
 
 
 
-## 使用 json-server 模拟接口 `json-server .\db.json --watch --port 5000`
+## json-server 版本 `0.17.4`
+## 使用 json-server 模拟接口 `json-server .\db.json --watch --port 3001`
 ## 使用 `react-router-dom@5`
 
 # Getting Started with Create React App
